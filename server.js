@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+require('dotenv').config();
 
 // Configure body parsing for AJAX requests
 app.use(express.urlencoded({ extended: true }));
@@ -17,8 +18,10 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
+const uri = process.env.ATLAS_URI
+
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost:27017/membersDB",
+  process.env.MONGODB_URI || uri, 
   {
     useCreateIndex: true,
     useNewUrlParser: true,
